@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mc.William | The Final Chapter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;700&family=Cormorant+Garamond:ital,wght@1,300;1,600&display=swap');
+
+        :root {
+            --accent: #EAB308;
+            --bg: #0A0A0A;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .serif { font-family: 'Cormorant Garamond', serif; }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-img {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(10,10,10,0.4), var(--bg)),
+                        url('https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/1.jpg.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.6;
+            filter: grayscale(40%);
+        }
+
+        .split-text { clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+
+        .gallery-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            background: #111;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: zoom-in;
+        }
+
+        .gallery-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s;
+            filter: grayscale(100%);
+        }
+
+        .gallery-card:hover img {
+            transform: scale(1.1);
+            filter: grayscale(0%);
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-10px);
+            z-index: 10;
+        }
+
+        nav {
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .noise {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://grainy-gradients.vercel.app/noise.svg');
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        #photoOverlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+            z-index: 9999;
+            display: none;
+            opacity: 0;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+        }
+
+        #photoOverlay img {
+            max-width: 95%;
+            max-height: 90vh;
+            object-fit: contain;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transform: scale(0.9);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="noise"></div>
+
+    <div id="photoOverlay">
+        <button id="closeBtn" class="absolute top-10 right-10 text-white text-3xl opacity-50 hover:opacity-100 transition-opacity">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <img id="overlayImage" src="" alt="Memory">
+    </div>
+
+    <nav class="fixed top-8 left-1/2 -translate-x-1/2 z-[100] px-10 py-3 rounded-full flex items-center space-x-12 whitespace-nowrap">
+        <div class="text-[9px] font-bold tracking-[0.2em] uppercase opacity-60">STARTED 2018</div>
+        <div class="text-xs font-bold tracking-[0.4em] uppercase text-accent">Mc.William</div>
+        <div class="text-[9px] font-bold tracking-[0.2em] uppercase opacity-60">ENDED 2026</div>
+    </nav>
+
+    <section class="hero overflow-hidden">
+        <div class="hero-img" id="heroBg"></div>
+        <div class="relative z-10 text-center">
+            <h2 class="text-xs uppercase tracking-[0.8em] mb-6 opacity-60 reveal">The Eight Year Journey</h2>
+            <h1 class="text-7xl md:text-[10rem] font-bold tracking-tighter leading-[0.8] mb-8">
+                <span class="block split-text" id="title1">NOST</span>
+                <span class="block serif italic split-text text-accent" id="title2">algia</span>
+            </h1>
+            <p class="text-sm font-light max-w-sm mx-auto opacity-40 leading-relaxed reveal">
+                A digital archive documenting the brotherhood and growth of the Batch of 2018-2026.
+            </p>
+        </div>
+        
+        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 text-center reveal">
+            <div class="w-[1px] h-16 bg-white/20 mx-auto mb-4"></div>
+            <span class="text-[8px] uppercase tracking-[0.5em] opacity-30">Scroll to Explore</span>
+        </div>
+    </section>
+
+    <section class="py-32 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="gallery-grid">
+                <!-- Archive Sequence -->
+                <div class="gallery-card col-span-12 md:col-span-8 aspect-video reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/img_1_1767853165537.jpg" alt="Memory 1">
+                </div>
+
+                <div class="gallery-card col-span-12 md:col-span-4 aspect-square md:aspect-auto reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/img_2_1767853633662.jpg" alt="Memory 2">
+                </div>
+
+                <div class="gallery-card col-span-6 md:col-span-4 aspect-square reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/2.jpg.jpg" alt="Memory 2 Old">
+                </div>
+
+                <div class="gallery-card col-span-6 md:col-span-4 aspect-square reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/3.jpg.jpg" alt="Memory 3">
+                </div>
+
+                <div class="gallery-card col-span-12 md:col-span-4 aspect-square reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/4.jpg.jpg" alt="Memory 4">
+                </div>
+
+                <div class="gallery-card col-span-12 md:col-span-6 aspect-video reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/5.jpg.jpg" alt="Memory 5">
+                </div>
+
+                <div class="gallery-card col-span-12 md:col-span-6 aspect-video reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/6.jpg.jpg" alt="Memory 6">
+                </div>
+
+                <div class="gallery-card col-span-6 md:col-span-4 aspect-square reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/7.jpg.jpg" alt="Memory 7">
+                </div>
+
+                <div class="gallery-card col-span-6 md:col-span-8 aspect-video reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/8.jpg.jpg" alt="Memory 8">
+                </div>
+
+                <!-- Instagram Segment -->
+                <div class="gallery-card col-span-6 md:col-span-3 aspect-square reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_120530_Instagram.jpg" alt="Instagram 1">
+                </div>
+                <div class="gallery-card col-span-6 md:col-span-3 aspect-square reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_120818_Instagram.jpg" alt="Instagram 2">
+                </div>
+                <div class="gallery-card col-span-6 md:col-span-3 aspect-square reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_121332_Instagram.jpg" alt="Instagram 3">
+                </div>
+                <div class="gallery-card col-span-6 md:col-span-3 aspect-square reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_121308_Instagram.jpg" alt="Instagram 4">
+                </div>
+
+                <!-- Final 4 Instagram Memories -->
+                <div class="gallery-card col-span-12 md:col-span-6 aspect-video reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_122100_Instagram.jpg" alt="Instagram 5">
+                </div>
+                <div class="gallery-card col-span-12 md:col-span-6 aspect-video reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_122022_Instagram.jpg" alt="Instagram 6">
+                </div>
+                <div class="gallery-card col-span-12 md:col-span-6 aspect-video reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_121954_Instagram.jpg" alt="Instagram 7">
+                </div>
+                <div class="gallery-card col-span-12 md:col-span-6 aspect-video reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_122009_Instagram.jpg" alt="Instagram 8">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-40 text-center px-6 reveal">
+        <h2 class="serif text-4xl md:text-7xl italic opacity-80 mb-8 max-w-4xl mx-auto">
+            "We were just kids with heavy bags and big dreams, now we're legends of these hallways."
+        </h2>
+        <div class="text-accent tracking-[0.4em] text-[10px] uppercase font-bold">Class of 2026</div>
+    </section>
+
+    <footer class="py-20 border-t border-white/5 text-center">
+        <div class="mb-8 flex justify-center space-x-12 opacity-30 text-[10px] font-bold uppercase tracking-[0.3em]">
+            <span>Respect</span>
+            <span>Honor</span>
+            <span>Brotherhood</span>
+        </div>
+        <h3 class="serif italic text-2xl opacity-50 mb-2">Mc.William High School</h3>
+        <!-- Added Name Here -->
+        <p class="text-[10px] tracking-[0.2em] font-light opacity-60 mb-6">CURATED BY <span class="text-white font-bold">AYUSH NANDI</span></p>
+        <p class="text-[9px] uppercase tracking-widest opacity-20">© 2018 — 2026 Archive. All rights reserved.</p>
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        const overlay = document.getElementById('photoOverlay');
+        const overlayImg = document.getElementById('overlayImage');
+
+        function openFullscreen(card) {
+            const imgSrc = card.querySelector('img').src;
+            overlayImg.src = imgSrc;
+            overlay.style.display = 'flex';
+            gsap.to(overlay, { opacity: 1, duration: 0.4 });
+            gsap.to(overlayImg, { scale: 1, duration: 0.5, ease: "power3.out" });
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeFullscreen() {
+            gsap.to(overlayImg, { scale: 0.9, duration: 0.3 });
+            gsap.to(overlay, { 
+                opacity: 0, 
+                duration: 0.3, 
+                onComplete: () => {
+                    overlay.style.display = 'none';
+                    overlayImg.src = '';
+                }
+            });
+            document.body.style.overflow = 'auto';
+        }
+
+        overlay.onclick = closeFullscreen;
+
+        window.onload = () => {
+            gsap.from("#title1", { y: 200, duration: 1.5, ease: "power4.out", delay: 0.2 });
+            gsap.from("#title2", { y: 200, duration: 1.5, ease: "power4.out", delay: 0.4 });
+            gsap.to("#heroBg", { scale: 1.15, duration: 10, repeat: -1, yoyo: true, ease: "sine.inOut" });
+        };
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            gsap.from(el, {
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 90%",
+                },
+                y: 50,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power2.out"
+            });
+        });
+
+        gsap.to("#heroBg", {
+            scrollTrigger: {
+                trigger: ".hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            },
+            y: 100
+        });
+    </script>
+</body>
+</html>
+
