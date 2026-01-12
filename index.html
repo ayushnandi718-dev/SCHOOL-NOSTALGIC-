@@ -48,15 +48,23 @@
 
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 1.5rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        @media (min-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 1rem;
+            }
         }
 
         .gallery-card {
             position: relative;
             overflow: hidden;
-            border-radius: 0.5rem;
+            border-radius: 0.4rem;
             background: #111;
+            aspect-ratio: 1 / 1;
             transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: zoom-in;
         }
@@ -75,7 +83,7 @@
         }
 
         .gallery-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
             z-index: 10;
         }
 
@@ -92,16 +100,6 @@
             opacity: 0.05;
             pointer-events: none;
             z-index: 9998;
-        }
-
-        .info-pill {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            padding: 0.75rem 1.25rem;
-            border-radius: 0.75rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
         }
 
         #photoOverlay {
@@ -155,7 +153,6 @@
                 A digital archive documenting the brotherhood and growth of the Batch of 2018-2026.
             </p>
         </div>
-        
         <div class="absolute bottom-12 left-1/2 -translate-x-1/2 text-center reveal">
             <div class="w-[1px] h-16 bg-white/20 mx-auto mb-4"></div>
             <span class="text-[8px] uppercase tracking-[0.5em] opacity-30">Scroll to Explore</span>
@@ -169,39 +166,18 @@
                 <div class="reveal">
                     <h3 class="text-xs uppercase tracking-[0.5em] text-accent mb-8 font-bold">Legacy & Institution</h3>
                     <h2 class="serif text-5xl md:text-7xl italic leading-tight mb-10">MC WILLIAM <br>HIGH SCHOOL</h2>
-                    <div class="space-y-6 text-white/60 leading-relaxed font-light text-justify">
-                        <p>
-                            MC WILLIAM HIGH SCHOOL was established in 1937 and it is managed by the Department of Education. It is located in Urban area. It is located in ALIPURDUAR MUNICIPALITY block of ALIPURDUAR district of West Bengal. The school consists of Grades from 5 to 12. 
-                        </p>
-                        <p>
-                            The school is Boys and it doesn't have an attached pre-primary section. Bengali is the medium of instructions in this school. This school is approachable by all weather road. In this school academic session starts in April.
-                        </p>
-                        <p>
-                            The school has Government building. It has got 13 classrooms for instructional purposes. All the classrooms are in good condition. It has 2 other rooms for non-teaching activities. The school has a separate room for Head master/Teacher. The school has Pucca boundary wall and electric connection.
-                        </p>
-                    </div>
+                    <p class="text-white/60 leading-relaxed font-light text-justify">
+                        Established in 1937, MC WILLIAM HIGH SCHOOL in Alipurduar, West Bengal, has shaped thousands of lives. This archive serves as a final salute to the years spent within its historic walls.
+                    </p>
                 </div>
-                
                 <div class="grid grid-cols-2 gap-4 reveal">
-                    <div class="info-pill">
+                    <div class="bg-white/5 p-6 rounded-xl border border-white/10 text-center">
                         <span class="text-[10px] uppercase tracking-widest opacity-40">Founded</span>
-                        <span class="text-xl font-bold">1937</span>
+                        <span class="block text-xl font-bold mt-1">1937</span>
                     </div>
-                    <div class="info-pill">
-                        <span class="text-[10px] uppercase tracking-widest opacity-40">Grades</span>
-                        <span class="text-xl font-bold">5 - 12 (Boys)</span>
-                    </div>
-                    <div class="info-pill">
-                        <span class="text-[10px] uppercase tracking-widest opacity-40">Library</span>
-                        <span class="text-xl font-bold">4000 Books</span>
-                    </div>
-                    <div class="info-pill">
-                        <span class="text-[10px] uppercase tracking-widest opacity-40">Digital Lab</span>
-                        <span class="text-xl font-bold">20 Computers</span>
-                    </div>
-                    <div class="info-pill col-span-2">
-                        <span class="text-[10px] uppercase tracking-widest opacity-40">Resources</span>
-                        <span class="text-sm opacity-80 leading-relaxed">Playground, Computer-Aided Learning Lab, Functional Tap Water, 3 Functional Toilets, and School-prepared Mid-day Meals.</span>
+                    <div class="bg-white/5 p-6 rounded-xl border border-white/10 text-center">
+                        <span class="text-[10px] uppercase tracking-widest opacity-40">Batch</span>
+                        <span class="block text-xl font-bold mt-1">2018-26</span>
                     </div>
                 </div>
             </div>
@@ -210,91 +186,83 @@
 
     <!-- Gallery Section Header -->
     <section class="pt-32 pb-12 text-center reveal">
-        <h2 class="text-6xl md:text-8xl font-bold tracking-[0.2em] opacity-10">2018 — 2026</h2>
+        <h2 class="text-6xl md:text-8xl font-bold tracking-[0.2em] opacity-10 uppercase">Class Archive</h2>
         <h3 class="serif italic text-4xl md:text-6xl -mt-8 md:-mt-12 text-white">END OF AN ERA</h3>
         <div class="w-24 h-[1px] bg-accent/50 mx-auto mt-8"></div>
     </section>
 
-    <!-- Gallery Section -->
+    <!-- Gallery Section (5-Column Square Grid) -->
     <section class="pb-32 px-6">
         <div class="max-w-7xl mx-auto">
             <div class="gallery-grid">
-                <!-- New Downloaded Image at Top -->
-                <div class="gallery-card col-span-12 aspect-video reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/download.jpg" alt="Era Opening">
+                <!-- Original Set -->
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/download.jpg" alt="Memory">
                 </div>
-
-                <!-- Standard Images -->
-                <div class="gallery-card col-span-12 md:col-span-8 aspect-video reveal" onclick="openFullscreen(this)">
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
                     <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/img_1_1767853165537.jpg" alt="Memory">
                 </div>
-
-                <div class="gallery-card col-span-12 md:col-span-4 aspect-square md:aspect-auto reveal" onclick="openFullscreen(this)">
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
                     <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/img_2_1767853633662.jpg" alt="Memory">
                 </div>
-
-                <div class="gallery-card col-span-6 md:col-span-4 aspect-square reveal" onclick="openFullscreen(this)">
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
                     <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/2.jpg.jpg" alt="Memory">
                 </div>
-
-                <div class="gallery-card col-span-6 md:col-span-4 aspect-square reveal" onclick="openFullscreen(this)">
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
                     <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/3.jpg.jpg" alt="Memory">
                 </div>
-
-                <div class="gallery-card col-span-12 md:col-span-4 aspect-square reveal" onclick="openFullscreen(this)">
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
                     <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/4.jpg.jpg" alt="Memory">
                 </div>
-
-                <div class="gallery-card col-span-12 md:col-span-6 aspect-video reveal" onclick="openFullscreen(this)">
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
                     <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/5.jpg.jpg" alt="Memory">
                 </div>
-
-                <div class="gallery-card col-span-12 md:col-span-6 aspect-video reveal" onclick="openFullscreen(this)">
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
                     <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/6.jpg.jpg" alt="Memory">
                 </div>
-
-                <div class="gallery-card col-span-6 md:col-span-4 aspect-square reveal" onclick="openFullscreen(this)">
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
                     <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/7.jpg.jpg" alt="Memory">
                 </div>
-
-                <div class="gallery-card col-span-6 md:col-span-8 aspect-video reveal" onclick="openFullscreen(this)">
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
                     <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/8.jpg.jpg" alt="Memory">
                 </div>
-
-                <!-- Recent Added General Pictures -->
-                <div class="gallery-card col-span-12 md:col-span-6 aspect-video reveal" onclick="openFullscreen(this)">
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
                     <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/f4d4edd8-e71b-497a-b3c5-fe0b9e8c201f.jpg" alt="Memory">
                 </div>
-                <div class="gallery-card col-span-12 md:col-span-6 aspect-video reveal" onclick="openFullscreen(this)">
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
                     <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/6a1b7685-8fa4-4f12-ad49-13bb82a82625.jpg" alt="Memory">
                 </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_120530_Instagram.jpg" alt="Memory">
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_120818_Instagram.jpg" alt="Memory">
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_121332_Instagram.jpg" alt="Memory">
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_121308_Instagram.jpg" alt="Memory">
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_122100_Instagram.jpg" alt="Memory">
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_122022_Instagram.jpg" alt="Memory">
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_121954_Instagram.jpg" alt="Memory">
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_122009_Instagram.jpg" alt="Memory">
+                </div>
 
-                <!-- Instagram Segment 1 -->
-                <div class="gallery-card col-span-6 md:col-span-3 aspect-square reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_120530_Instagram.jpg" alt="IG">
+                <!-- Latest Additions -->
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20260112-WA0013.jpg" alt="New Memory 1">
                 </div>
-                <div class="gallery-card col-span-6 md:col-span-3 aspect-square reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_120818_Instagram.jpg" alt="IG">
-                </div>
-                <div class="gallery-card col-span-6 md:col-span-3 aspect-square reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_121332_Instagram.jpg" alt="IG">
-                </div>
-                <div class="gallery-card col-span-6 md:col-span-3 aspect-square reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_121308_Instagram.jpg" alt="IG">
-                </div>
-
-                <!-- Instagram Segment 2 -->
-                <div class="gallery-card col-span-12 md:col-span-6 aspect-video reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_122100_Instagram.jpg" alt="IG">
-                </div>
-                <div class="gallery-card col-span-12 md:col-span-6 aspect-video reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_122022_Instagram.jpg" alt="IG">
-                </div>
-                <div class="gallery-card col-span-12 md:col-span-6 aspect-video reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_121954_Instagram.jpg" alt="IG">
-                </div>
-                <div class="gallery-card col-span-12 md:col-span-6 aspect-video reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_122009_Instagram.jpg" alt="IG">
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20260112-WA0014.jpg" alt="New Memory 2">
                 </div>
             </div>
         </div>
@@ -310,14 +278,9 @@
 
     <!-- Footer -->
     <footer class="py-20 border-t border-white/5 text-center">
-        <div class="mb-8 flex justify-center space-x-12 opacity-30 text-[10px] font-bold uppercase tracking-[0.3em]">
-            <span>Respect</span>
-            <span>Honor</span>
-            <span>Brotherhood</span>
-        </div>
         <h3 class="serif italic text-2xl opacity-50 mb-2 tracking-wide">Mc.William High School</h3>
         <p class="text-[10px] tracking-[0.2em] font-light opacity-60 mb-6 uppercase">Curated by <span class="text-white font-bold">Ayush Nandi</span></p>
-        <p class="text-[9px] uppercase tracking-widest opacity-20">© 2018 — 2026 Digital Archive. All rights reserved.</p>
+        <p class="text-[9px] uppercase tracking-widest opacity-20">© 2018 — 2026 Digital Archive.</p>
     </footer>
 
     <script>
@@ -353,7 +316,6 @@
         window.onload = () => {
             gsap.from("#title1", { y: 200, duration: 1.5, ease: "power4.out", delay: 0.2 });
             gsap.from("#title2", { y: 200, duration: 1.5, ease: "power4.out", delay: 0.4 });
-            gsap.to("#heroBg", { scale: 1.15, duration: 10, repeat: -1, yoyo: true, ease: "sine.inOut" });
         };
 
         document.querySelectorAll('.reveal').forEach(el => {
@@ -368,16 +330,7 @@
                 ease: "power2.out"
             });
         });
-
-        gsap.to("#heroBg", {
-            scrollTrigger: {
-                trigger: ".hero",
-                start: "top top",
-                end: "bottom top",
-                scrub: true
-            },
-            y: 100
-        });
     </script>
 </body>
 </html>
+
