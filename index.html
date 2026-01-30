@@ -14,6 +14,7 @@
         :root {
             --accent: #EAB308;
             --bg: #0A0A0A;
+            --polaroid-white: #fdfdfd;
         }
 
         body {
@@ -49,42 +50,56 @@
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 0.75rem;
+            gap: 2rem;
+            padding: 2rem 0;
         }
 
         @media (min-width: 1024px) {
             .gallery-grid {
-                grid-template-columns: repeat(5, 1fr);
-                gap: 1rem;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 3rem;
             }
         }
 
+        /* Polaroid Style */
         .gallery-card {
             position: relative;
-            overflow: hidden;
-            border-radius: 0.4rem;
-            background: #111;
-            aspect-ratio: 1 / 1;
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            background: var(--polaroid-white);
+            padding: 12px 12px 40px 12px; /* Thick bottom for the Polaroid look */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: zoom-in;
+            /* Random rotation for that "scattered" feel */
+            transform: rotate(var(--rotation, 2deg));
+        }
+
+        .gallery-card:nth-child(even) { --rotation: -2deg; }
+        .gallery-card:nth-child(3n) { --rotation: 1.5deg; }
+        .gallery-card:nth-child(4n) { --rotation: -1deg; }
+
+        .image-container {
+            width: 100%;
+            aspect-ratio: 1 / 1; /* Classic square polaroid photo area */
+            overflow: hidden;
+            background: #222;
         }
 
         .gallery-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s;
-            filter: grayscale(100%);
-        }
-
-        .gallery-card:hover img {
-            transform: scale(1.1);
-            filter: grayscale(0%);
+            transition: filter 0.5s, transform 0.8s;
+            filter: grayscale(20%) sepia(20%);
         }
 
         .gallery-card:hover {
-            transform: translateY(-8px);
-            z-index: 10;
+            transform: rotate(0deg) translateY(-15px) scale(1.05);
+            z-index: 50;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
+
+        .gallery-card:hover img {
+            filter: grayscale(0%) sepia(0%);
         }
 
         nav {
@@ -116,11 +131,12 @@
         }
 
         #photoOverlay img {
-            max-width: 95%;
-            max-height: 90vh;
+            max-width: 90%;
+            max-height: 85vh;
             object-fit: contain;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             transform: scale(0.9);
+            border: 10px solid white;
         }
     </style>
 </head>
@@ -159,117 +175,169 @@
         </div>
     </section>
 
-    <!-- Legacy / About Section -->
-    <section class="py-32 px-6 bg-white/[0.02] border-y border-white/5">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
-                <div class="reveal">
-                    <h3 class="text-xs uppercase tracking-[0.5em] text-accent mb-8 font-bold">Legacy & Institution</h3>
-                    <h2 class="serif text-5xl md:text-7xl italic leading-tight mb-10">MC WILLIAM <br>HIGH SCHOOL</h2>
-                    <p class="text-white/60 leading-relaxed font-light text-justify">
-                        Established in 1937, MC WILLIAM HIGH SCHOOL in Alipurduar, West Bengal, has shaped thousands of lives. This archive serves as a final salute to the years spent within its historic walls.
-                    </p>
-                </div>
-                <div class="grid grid-cols-2 gap-4 reveal">
-                    <div class="bg-white/5 p-6 rounded-xl border border-white/10 text-center">
-                        <span class="text-[10px] uppercase tracking-widest opacity-40">Founded</span>
-                        <span class="block text-xl font-bold mt-1">1937</span>
-                    </div>
-                    <div class="bg-white/5 p-6 rounded-xl border border-white/10 text-center">
-                        <span class="text-[10px] uppercase tracking-widest opacity-40">Batch</span>
-                        <span class="block text-xl font-bold mt-1">2018-26</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Gallery Section Header -->
     <section class="pt-32 pb-12 text-center reveal">
         <h2 class="text-6xl md:text-8xl font-bold tracking-[0.2em] opacity-10 uppercase">Class Archive</h2>
-        <h3 class="serif italic text-4xl md:text-6xl -mt-8 md:-mt-12 text-white">MEMORIES COLLECTED</h3>
+        <h3 class="serif italic text-4xl md:text-6xl -mt-8 md:-mt-12 text-white">POLAROID COLLECTION</h3>
         <div class="w-24 h-[1px] bg-accent/50 mx-auto mt-8"></div>
     </section>
 
-    <!-- Gallery Section (5-Column Square Grid) -->
+    <!-- Gallery Section -->
     <section class="pb-32 px-6">
         <div class="max-w-7xl mx-auto">
             <div class="gallery-grid">
-                <!-- 1st -->
+                <!-- All images in Polaroid style -->
                 <div class="gallery-card reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/download.jpg" alt="Memory">
-                </div>
-                <!-- 2nd -->
-                <div class="gallery-card reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/img_1_1767853165537.jpg" alt="Memory">
-                </div>
-                <!-- 3rd -->
-                <div class="gallery-card reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/img_2_1767853633662.jpg" alt="Memory">
-                </div>
-                <!-- 4th (Moved here from last) -->
-                <div class="gallery-card reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20200131-WA0002.jpg" alt="Memory Jan 2020">
-                </div>
-                <!-- 5th -->
-                <div class="gallery-card reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/2.jpg.jpg" alt="Memory">
-                </div>
-                <!-- 6th -->
-                <div class="gallery-card reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/3.jpg.jpg" alt="Memory">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/download.jpg" alt="Memory"></div>
                 </div>
                 <div class="gallery-card reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/4.jpg.jpg" alt="Memory">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/img_1_1767853165537.jpg" alt="Memory"></div>
                 </div>
                 <div class="gallery-card reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/5.jpg.jpg" alt="Memory">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/img_2_1767853633662.jpg" alt="Memory"></div>
                 </div>
                 <div class="gallery-card reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/6.jpg.jpg" alt="Memory">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20200131-WA0002.jpg" alt="Memory"></div>
                 </div>
                 <div class="gallery-card reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/7.jpg.jpg" alt="Memory">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/2.jpg.jpg" alt="Memory"></div>
                 </div>
                 <div class="gallery-card reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/8.jpg.jpg" alt="Memory">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/3.jpg.jpg" alt="Memory"></div>
                 </div>
                 <div class="gallery-card reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/f4d4edd8-e71b-497a-b3c5-fe0b9e8c201f.jpg" alt="Memory">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/4.jpg.jpg" alt="Memory"></div>
                 </div>
                 <div class="gallery-card reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/6a1b7685-8fa4-4f12-ad49-13bb82a82625.jpg" alt="Memory">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/5.jpg.jpg" alt="Memory"></div>
                 </div>
                 <div class="gallery-card reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_120530_Instagram.jpg" alt="Memory">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/6.jpg.jpg" alt="Memory"></div>
                 </div>
                 <div class="gallery-card reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_120818_Instagram.jpg" alt="Memory">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/7.jpg.jpg" alt="Memory"></div>
                 </div>
                 <div class="gallery-card reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_121332_Instagram.jpg" alt="Memory">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/8.jpg.jpg" alt="Memory"></div>
                 </div>
                 <div class="gallery-card reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_121308_Instagram.jpg" alt="Memory">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/f4d4edd8-e71b-497a-b3c5-fe0b9e8c201f.jpg" alt="Memory"></div>
                 </div>
                 <div class="gallery-card reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_122100_Instagram.jpg" alt="Memory">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/6a1b7685-8fa4-4f12-ad49-13bb82a82625.jpg" alt="Memory"></div>
                 </div>
                 <div class="gallery-card reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_122022_Instagram.jpg" alt="Memory">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_120530_Instagram.jpg" alt="Memory"></div>
                 </div>
                 <div class="gallery-card reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_121954_Instagram.jpg" alt="Memory">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_120818_Instagram.jpg" alt="Memory"></div>
                 </div>
                 <div class="gallery-card reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_122009_Instagram.jpg" alt="Memory">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_121332_Instagram.jpg" alt="Memory"></div>
                 </div>
                 <div class="gallery-card reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20260112-WA0013.jpg" alt="Memory Jan 2026">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_121308_Instagram.jpg" alt="Memory"></div>
                 </div>
                 <div class="gallery-card reveal" onclick="openFullscreen(this)">
-                    <img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20260112-WA0014.jpg" alt="Memory Jan 2026">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_122100_Instagram.jpg" alt="Memory"></div>
                 </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_122022_Instagram.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_121954_Instagram.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/SmartSelect_20260108_122009_Instagram.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20260112-WA0013.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20260112-WA0014.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240330-WA0013.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240330-WA0014.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240330-WA0015.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240330-WA0017.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240330-WA0018.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240330-WA0019.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240330-WA0020.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240330-WA0021.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240330-WA0022.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240330-WA0023.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240330-WA0025.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240330-WA0026.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240509-WA0000.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240509-WA0001.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240703-WA0010.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240703-WA0011.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240726-WA0004.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240726-WA0006.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240726-WA0008.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240726-WA0009.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240726-WA0010.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240929-WA0001.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240929-WA0003.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240929-WA0005.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240929-WA0007.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/IMG-20240929-WA0009.jpg" alt="Memory"></div>
+                </div>
+                <div class="gallery-card reveal" onclick="openFullscreen(this)">
+                    <div class="image-container"><img src="https://raw.githubusercontent.com/ayushnandi718-dev/SCHOOL-NOSTALGIC-/main/Screenshot_20240210_135948_WhatsApp.jpg" alt="Memory"></div>
+                </div>
+                <!-- Last two pics (HEIC) removed as requested -->
             </div>
         </div>
     </section>
@@ -339,4 +407,3 @@
     </script>
 </body>
 </html>
-
